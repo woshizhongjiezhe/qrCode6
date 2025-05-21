@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>杭州零界人工智能科技有限公司 - SingularityX Evolution</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        .loading-text {
+            color: #0ff;
+            font-size: 18px;
+            margin-top: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+        
+        #stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+        }
+        
+        #intro-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9998;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        .singularity {
+            width: 5px;
+            height: 5px;
+            background-color: #0ff;
+            border-radius: 50%;
+            position: absolute;
+            box-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff;
+            transform: scale(0);
+            opacity: 0;
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 20px;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            animation-delay: 3s;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-top: 20px;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #0ff, #09f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+        }
+        
+        .tagline {
+            font-size: 16px;
+            color: #0ff;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+        
+        section {
+            margin-bottom: 40px;
+            border-left: 2px solid #0ff;
+            padding-left: 15px;
+            position: relative;
+            animation: slideIn 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        section:nth-child(1) { animation-delay: 3.2s; }
+        section:nth-child(2) { animation-delay: 3.4s; }
+        section:nth-child(3) { animation-delay: 3.6s; }
+        section:nth-child(4) { animation-delay: 3.8s; }
+        section:nth-child(5) { animation-delay: 4.0s; }
+        
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        section:before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 0;
+            width: 14px;
+            height: 14px;
+            background-color: #0ff;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #0ff;
+        }
+        
+        h2 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #0ff;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+        
+        .highlight {
+            color: #0ff;
+            font-weight: bold;
+        }
+        
+        .job-title {
+            font-size: 18px;
+            color: #09f;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .vision-box {
+            background: rgba(0, 50, 100, 0.3);
+            border: 1px solid #0ff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+        
+        .vision-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .contact-info {
+            background: rgba(0, 30, 60, 0.5);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .contact-method {
+            margin-bottom: 15px;
+        }
+        
+        .contact-label {
+            color: #0ff;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(to right, #0ff, #09f);
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 40px;
+            border-top: 1px solid rgba(0, 255, 255, 0.3);
+            font-size: 14px;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            animation-delay: 4.2s;
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 5px #0ff;
+        }
+        
+        .architecture-diagram {
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto;
+            background: rgba(0, 20, 40, 0.5);
+            border: 1px solid #0ff;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        
+        .arch-box {
+            border: 1px solid #09f;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: rgba(0, 40, 80, 0.4);
+        }
+        
+        .arch-title {
+            color: #0ff;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+        
+        .arch-item {
+            padding-left: 15px;
+            margin-bottom: 5px;
+            position: relative;
+        }
+        
+        .arch-item:before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #0ff;
+        }
+        
+        #video-container {
+            width: 100%;
+            margin: 0 auto 30px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        }
+        
+        .placeholder-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #001428, #003366);
+            color: #fff;
+            text-align: center;
+            font-size: 16px;
+        }
+        
+        .video-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+            color: #0ff;
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                padding: 40px;
+            }
+            
+            .logo {
+                font-size: 36px;
+            }
+            
+            .tagline {
+                font-size: 18px;
+            }
+            
+            h2 {
+                font-size: 28px;
+            }
+            
+            p {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 加载界面 -->
+    <div class="loader">
+        <div class="loading-text">系统启动中...</div>
+    </div>
+    
+    <!-- 星空背景 -->
+    <div id="stars-container"></div>
+    
+    <!-- 开场动画 -->
+    <div id="intro-animation"></div>
+    
+    <!-- 主要内容 -->
+    <div class="container">
+        <header>
+            <div class="logo">杭州零界人工智能科技有限公司</div>
+            <div class="tagline">SingularityX Evolution - 用AI改写金融系统的演化逻辑</div>
+        </header>
+        
+        <!-- 视频展示区 -->
+        <div id="video-container">
+            <div class="placeholder-video">
+                <div>
+                    <div class="video-icon">▶</div>
+                    <div>AI驱动的量化交易未来</div>
+                    <div style="margin-top: 10px; font-size: 14px; opacity: 0.8;">
+                        展示人工智能与金融科技的完美结合
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <section>
+            <h2>我们是谁</h2>
+            <p><span class="highlight">SingularityX Evolution</span> (零界演化科技) 正在构建一套以<span class="highlight">加速回报定律</span>为基础的AI驱动量化交易系统。</p>
+            <p>我们不是做工具，而是在建造一个<span class="highlight glow-text">"自我成长的金融生命体"</span>。</p>
+            
+            <div class="vision-box">
+                <div class="vision-text">我们的目标系统具备：</div>
+                <ul>
+                    <li>策略自动生成与进化能力</li>
+                    <li>智能体级别的博弈与部署结构</li>
+                    <li>面向实盘执行的高频/中频交易引擎</li>
+                    <li>长期可自演化的金融智能生态系统</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section>
+            <h2>我们的愿景</h2>
+            <div class="vision-box">
+                <div class="vision-text">"构建一个演化速度超过市场适应速度的智能体金融系统"</div>
+                <p>我们相信，未来的金融不是人设规则，而是AI设法则。</p>
+                <p>我们在打造这个"AI金融生命体"，让它学会成长、对抗、适应与赚钱。</p>
+            </div>
+        </section>
+        
+        <section>
+            <h2>团队架构</h2>
+            <div class="architecture-diagram">
+                <div class="arch-box">
+                    <div class="arch-title">CTO</div>
+                </div>
+                
+                <div class="arch-box">
+                    <div class="arch-title">策略研究组(RL+自博弈)</div>
+                    <div class="arch-item">强化学习研究员 x2</div>
+                    <div class="arch-item">智能体仿真开发 x1</div>
+                </div>
+                
+                <div class="arch-box">
+                    <div class="arch-title">策略工程组(量化执行)</div>
+                    <div class="arch-item">Alpha策略工程师 x2</div>
+                    <div class="arch-item">数据因子工程师 x1</div>
+                </div>
+                
+                <div class="arch-box">
+                    <div class="arch-title">系统架构组(实盘执行)</div>
+                    <div class="arch-item">DevOps/架构师 x1</div>
+                    <div class="arch-item">后端开发 x1</div>
+                </div>
+                
+                <div class="arch-box">
+                    <div class="arch-title">AI项目协调/产品 x1</div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>热招岗位</h2>
+            
+            <div class="job-title">1. 强化学习研究工程师（策略演化方向）</div>
+            <ul>
+                <li>构建自博弈、AlphaZero式智能体演化系统</li>
+                <li>熟悉 PPO/SAC/DDPG/Evolutionary Search等算法</li>
+                <li>RLlib/Stable Baselines3/PyTorch 实战经验优先</li>
+            </ul>
+            
+            <div class="job-title">2. DevOps/交易系统架构工程师</div>
+            <ul>
+                <li>搭建GPU训练调度与低延迟实盘执行系统</li>
+                <li>精通容器化部署(Docker/Kubernetes)</li>
+                <li>有交易所接入与高可用系统经验者优先</li>
+            </ul>
+            
+            <div class="job-title">3. AI产品经理/项目协调官(TPM)</div>
+            <ul>
+                <li>管理策略引擎与执行系统协同开发</li>
+                <li>熟悉AI项目流程与量化金融语境</li>
+                <li>可作为CEO/CTO技术接口管理人</li>
+            </ul>
+            
+            <div class="contact-info">
+                <h2>加入我们</h2>
+                <p>应聘请发送简历至：<span class="highlight">hanxiaoxuan@wereen.com</span>（邮件标题格式：姓名+应聘岗位）</p>
+                
+                <div class="contact-method">
+                    <div class="contact-label">联系人：</div>
+                    <div>韩女士 15275423180</div>
+                    <div>王女士 18663979512</div>
+                </div>
+                
+                <div class="contact-method">
+                    <div class="contact-label">公司电话：</div>
+                    <div>0532-55673088</div>
+                </div>
+                
+                <a href="mailto:hanxiaoxuan@wereen.com" class="cta-button">立即申请职位</a>
+            </div>
+        </section>
+        
+        <footer>
+            © 2025 杭州零界人工智能科技有限公司 (SingularityX Evolution) - 所有权利保留
+        </footer>
+    </div>
+    
+    <script>
+        // 创建星空背景
+        function createStars() {
+            const starsContainer = document.getElementById('stars-container');
+            const starCount = window.innerWidth < 768 ? 100 : 200;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // 随机大小
+                const size = Math.random() * 2;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // 随机位置
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // 随机闪烁
+                star.style.animation = `pulse ${2 + Math.random() * 3}s infinite ${Math.random() * 5}s`;
+                
+                // 亮度
+                star.style.opacity = Math.random();
+                
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // 创建星系聚合动画
+        function createIntroAnimation() {
+            const introAnimation = document.getElementById('intro-animation');
+            const starCount = window.innerWidth < 768 ? 100 : 200;
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            
+            // 创建散布的星点
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('singularity');
+                
+                // 随机位置（全屏）
+                const posX = Math.random() * window.innerWidth;
+                const posY = Math.random() * window.innerHeight;
+                star.style.left = `${posX}px`;
+                star.style.top = `${posY}px`;
+                
+                // 随机大小
+                const size = 1 + Math.random() * 2;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                introAnimation.appendChild(star);
+                
+                // 动画：淡入
+                setTimeout(() => {
+                    star.style.opacity = 0.7 + Math.random() * 0.3;
+                    star.style.transform = 'scale(1)';
+                    star.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                }, i * 10);
+                
+                // 动画：聚合到中心
+                setTimeout(() => {
+                    star.style.left = `${centerX}px`;
+                    star.style.top = `${centerY}px`;
+                    star.style.transition = 'left 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), top 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                }, 1000 + Math.random() * 500);
+            }
+            
+            // 创建中央球体
+            setTimeout(() => {
+                const centralOrb = document.createElement('div');
+                centralOrb.style.position = 'absolute';
+                centralOrb.style.left = `${centerX}px`;
+                centralOrb.style.top = `${centerY}px`;
+                centralOrb.style.width = '0';
+                centralOrb.style.height = '0';
+                centralOrb.style.backgroundColor = '#0ff';
+                centralOrb.style.borderRadius = '50%';
+                centralOrb.style.transform = 'translate(-50%, -50%)';
+                centralOrb.style.boxShadow = '0 0 30px #0ff, 0 0 60px #0ff';
+                centralOrb.style.transition = 'width 0.5s ease, height 0.5s ease';
+                introAnimation.appendChild(centralOrb);
+                
+                setTimeout(() => {
+                    centralOrb.style.width = '100px';
+                    centralOrb.style.height = '100px';
+                }, 100);
+                
+                // 显示标题
+                setTimeout(() => {
+                    const title = document.createElement('div');
+                    title.style.position = 'absolute';
+                    title.style.left = '50%';
+                    title.style.top = '60%';
+                    title.style.transform = 'translate(-50%, -50%)';
+                    title.style.color = '#fff';
+                    title.style.fontSize = '24px';
+                    title.style.fontWeight = 'bold';
+                    title.style.opacity = '0';
+                    title.style.transition = 'opacity 0.5s ease';
+                    title.style.textAlign = 'center';
+                    title.style.width = '100%';
+                    title.style.padding = '0 20px';
+                    title.innerHTML = '零界演化科技<br><span style="font-size:18px;color:#0ff;">SingularityX Evolution</span>';
+                    introAnimation.appendChild(title);
+                    
+                    setTimeout(() => {
+                        title.style.opacity = '1';
+                    }, 100);
+                    
+                    // 淡出动画和标题
+                    setTimeout(() => {
+                        centralOrb.style.opacity = '0';
+                        title.style.opacity = '0';
+                        
+                        // 隐藏动画区域
+                        setTimeout(() => {
+                            introAnimation.style.display = 'none';
+                            document.querySelector('.loader').style.display = 'none';
+                        }, 500);
+                    }, 1000);
+                }, 2000);
+            }, 2500);
+        }
+        
+        // 页面加载完成后执行
+        window.addEventListener('load', () => {
+            // 创建星空背景
+            createStars();
+            
+            // 延迟一段时间后显示加载动画
+            setTimeout(() => {
+                document.querySelector('.loading-text').textContent = '连接量子计算集群...';
+                
+                setTimeout(() => {
+                    document.querySelector('.loading-text').textContent = '初始化AI金融生命体...';
+                    
+                    setTimeout(() => {
+                        document.querySelector('.loading-text').textContent = '加载完成';
+                        
+                        // 执行开场动画
+                        createIntroAnimation();
+                    }, 800);
+                }, 800);
+            }, 800);
+        });
+    </script>
+</body>
+</html>
